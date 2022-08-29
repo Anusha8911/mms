@@ -50,7 +50,6 @@ echo"<script>alert('Profile updated Succssfully');</script>";
 		<div class="content-wrapper">
 			<div class="container-fluid">
 	<?php	
-	$_SESSION['regno'] = $regno;
 $aid=$_SESSION['id'];
 $udate = date('d-m-Y h:i:s', time());
 	$ret="select * from userregistration where id=?";

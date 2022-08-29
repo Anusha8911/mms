@@ -29,13 +29,13 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin` (
-  `id` int(11) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(300) NOT NULL,
-  `reg_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updation_date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id` INT(11) NOT NULL,
+  `username` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `password` VARCHAR(300) NOT NULL,
+  `reg_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  `updation_date` DATE NOT NULL
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `admin`
@@ -51,11 +51,11 @@ INSERT INTO `admin` (`id`, `username`, `email`, `password`, `reg_date`, `updatio
 --
 
 CREATE TABLE `adminlog` (
-  `id` int(11) NOT NULL,
-  `adminid` int(11) NOT NULL,
-  `ip` varbinary(16) NOT NULL,
-  `logintime` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id` INT(11) NOT NULL,
+  `adminid` INT(11) NOT NULL,
+  `ip` VARBINARY(16) NOT NULL,
+  `logintime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP()
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -63,27 +63,21 @@ CREATE TABLE `adminlog` (
 -- Table structure for table `courses`
 --
 
-CREATE TABLE `courses` (
-  `id` int(11) NOT NULL,
-  `course_code` varchar(255) DEFAULT NULL,
-  `course_sn` varchar(255) DEFAULT NULL,
-  `course_fn` varchar(255) DEFAULT NULL,
-  `posting_date` timestamp NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `devisions` (
+  `id` INT(11) NOT NULL,
+  `devision_name` VARCHAR(255) NOT NULL
+
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `courses`
 --
 
-INSERT INTO `courses` (`id`, `course_code`, `course_sn`, `course_fn`, `posting_date`) VALUES
-(1, 'B10992', 'B.Tech', 'Bachelor  of Technology', '2020-07-04 19:31:42'),
-(2, 'BCOM1453', 'B.Com', 'Bachelor Of commerce ', '2020-07-04 19:31:42'),
-(3, 'BSC12', 'BSC', 'Bachelor  of Science', '2020-07-04 19:31:42'),
-(4, 'BC36356', 'BCA', 'Bachelor Of Computer Application', '2020-07-04 19:31:42'),
-(5, 'MCA565', 'MCA', 'Master of Computer Application', '2020-07-04 19:31:42'),
-(6, 'MBA75', 'MBA', 'Master of Business Administration', '2020-07-04 19:31:42'),
-(7, 'BE765', 'BE', 'Bachelor of Engineering', '2020-07-04 19:31:42');
-
+INSERT INTO `devisions` (`id`, `devision_name`) VALUES
+(1, 'GM Office'),
+(2, 'CR'),
+(3, 'COM'),
+(4, 'SRS');
 -- --------------------------------------------------------
 
 --
@@ -91,43 +85,27 @@ INSERT INTO `courses` (`id`, `course_code`, `course_sn`, `course_fn`, `posting_d
 --
 
 CREATE TABLE `registration` (
-  `id` int(11) NOT NULL,
-  `roomno` int(11) DEFAULT NULL,
-  `seater` int(11) DEFAULT NULL,
-  `feespm` int(11) DEFAULT NULL,
-  `foodstatus` int(11) DEFAULT NULL,
-  `stayfrom` date DEFAULT NULL,
-  `duration` int(11) DEFAULT NULL,
-  `course` varchar(500) DEFAULT NULL,
-  `regno` int(11) DEFAULT NULL,
-  `firstName` varchar(500) DEFAULT NULL,
-  `middleName` varchar(500) DEFAULT NULL,
-  `lastName` varchar(500) DEFAULT NULL,
-  `gender` varchar(250) DEFAULT NULL,
-  `contactno` bigint(11) DEFAULT NULL,
-  `emailid` varchar(500) DEFAULT NULL,
-  `egycontactno` bigint(11) DEFAULT NULL,
-  `guardianName` varchar(500) DEFAULT NULL,
-  `guardianRelation` varchar(500) DEFAULT NULL,
-  `guardianContactno` bigint(11) DEFAULT NULL,
-  `corresAddress` varchar(500) DEFAULT NULL,
-  `corresCIty` varchar(500) DEFAULT NULL,
-  `corresState` varchar(500) DEFAULT NULL,
-  `corresPincode` int(11) DEFAULT NULL,
-  `pmntAddress` varchar(500) DEFAULT NULL,
-  `pmntCity` varchar(500) DEFAULT NULL,
-  `pmnatetState` varchar(500) DEFAULT NULL,
-  `pmntPincode` int(11) DEFAULT NULL,
-  `postingDate` timestamp NULL DEFAULT current_timestamp(),
-  `updationDate` varchar(500) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id` INT(11),
+
+  `recidate` DATE DEFAULT NULL,
+  
+  `devision` VARCHAR(500) DEFAULT NULL,
+  `regno` INT(11) DEFAULT NULL,
+  `subject` VARCHAR(500) DEFAULT NULL,
+  `title` VARCHAR(500) DEFAULT NULL,
+  `recitype` VARCHAR(500) DEFAULT NULL,
+  `regplace` VARCHAR(250) DEFAULT NULL,
+ `comment` VARCHAR(500)
+
+
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `registration`
 --
 
-INSERT INTO `registration` (`id`, `roomno`, `seater`, `feespm`, `foodstatus`, `stayfrom`, `duration`, `course`, `regno`, `firstName`, `middleName`, `lastName`, `gender`, `contactno`, `emailid`, `egycontactno`, `guardianName`, `guardianRelation`, `guardianContactno`, `corresAddress`, `corresCIty`, `corresState`, `corresPincode`, `pmntAddress`, `pmntCity`, `pmnatetState`, `pmntPincode`, `postingDate`, `updationDate`) VALUES
-(2, 100, 5, 8000, 1, '2020-08-01', 6, 'Bachelor  of Technology', 10806121, 'Anuj', '', 'kumar', 'male', 1234567890, 'ak@gmail.com', 1236547890, 'ABC', 'XYZ', 98756320000, 'ABC 12345 XYZ Street', 'New Delhi', 'Delhi (NCT)', 110001, 'ABC 12345 XYZ Street', 'New Delhi', 'Delhi (NCT)', 110001, '2020-07-20 14:58:26', NULL);
+INSERT INTO `registration` (`id`, `recidate`, `devision`, `regno`, `subject`, `title`, `recitype`, `regplace`, `comment`) VALUES
+(1, '2020-08-01','CR', 10806121,'CL', 'kumar', 'By Hand', 'crd', 'dsded');
 
 -- --------------------------------------------------------
 
@@ -136,12 +114,12 @@ INSERT INTO `registration` (`id`, `roomno`, `seater`, `feespm`, `foodstatus`, `s
 --
 
 CREATE TABLE `rooms` (
-  `id` int(11) NOT NULL,
-  `seater` int(11) DEFAULT NULL,
-  `room_no` int(11) DEFAULT NULL,
-  `fees` int(11) DEFAULT NULL,
-  `posting_date` timestamp NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id` INT(11) NOT NULL,
+  `seater` INT(11) DEFAULT NULL,
+  `room_no` INT(11) DEFAULT NULL,
+  `fees` INT(11) DEFAULT NULL,
+  `posting_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP()
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `rooms`
@@ -161,9 +139,9 @@ INSERT INTO `rooms` (`id`, `seater`, `room_no`, `fees`, `posting_date`) VALUES
 --
 
 CREATE TABLE `states` (
-  `id` int(11) NOT NULL,
-  `State` varchar(150) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `id` INT(11) NOT NULL,
+  `State` VARCHAR(150) DEFAULT NULL
+) ENGINE=MYISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `states`
@@ -214,14 +192,14 @@ INSERT INTO `states` (`id`, `State`) VALUES
 --
 
 CREATE TABLE `userlog` (
-  `id` int(11) NOT NULL,
-  `userId` int(11) NOT NULL,
-  `userEmail` varchar(255) NOT NULL,
-  `userIp` varbinary(16) NOT NULL,
-  `city` varchar(255) NOT NULL,
-  `country` varchar(255) NOT NULL,
-  `loginTime` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id` INT(11) NOT NULL,
+  `userId` INT(11) NOT NULL,
+  `userEmail` VARCHAR(255) NOT NULL,
+  `userIp` VARBINARY(16) NOT NULL,
+  `city` VARCHAR(255) NOT NULL,
+  `country` VARCHAR(255) NOT NULL,
+  `loginTime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP()
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `userlog`
@@ -236,20 +214,21 @@ INSERT INTO `userlog` (`id`, `userId`, `userEmail`, `userIp`, `city`, `country`,
 -- Table structure for table `userregistration`
 --
 
+
 CREATE TABLE `userregistration` (
-  `id` int(11) NOT NULL,
-  `regNo` varchar(255) DEFAULT NULL,
-  `firstName` varchar(255) DEFAULT NULL,
-  `middleName` varchar(255) DEFAULT NULL,
-  `lastName` varchar(255) DEFAULT NULL,
-  `gender` varchar(255) DEFAULT NULL,
-  `contactNo` bigint(20) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `regDate` timestamp NULL DEFAULT current_timestamp(),
-  `updationDate` varchar(45) DEFAULT NULL,
-  `passUdateDate` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id` INT(11) NOT NULL,
+  `regNo` VARCHAR(255) DEFAULT NULL,
+  `firstName` VARCHAR(255) DEFAULT NULL,
+  `middleName` VARCHAR(255) DEFAULT NULL,
+  `lastName` VARCHAR(255) DEFAULT NULL,
+  `gender` VARCHAR(255) DEFAULT NULL,
+  `contactNo` BIGINT(20) DEFAULT NULL,
+  `email` VARCHAR(255) DEFAULT NULL,
+  `password` VARCHAR(255) DEFAULT NULL,
+  `regDate` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
+  `updationDate` VARCHAR(45) DEFAULT NULL,
+  `passUdateDate` VARCHAR(45) DEFAULT NULL
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `userregistration`
@@ -271,7 +250,7 @@ ALTER TABLE `admin`
 --
 -- Indexes for table `courses`
 --
-ALTER TABLE `courses`
+ALTER TABLE `devisions`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -314,43 +293,43 @@ ALTER TABLE `userregistration`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `courses`
 --
-ALTER TABLE `courses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+ALTER TABLE `devisions`
+  MODIFY `id` INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT for table `registration`
 --
 ALTER TABLE `registration`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` INT(11)  AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `states`
 --
 ALTER TABLE `states`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `userlog`
 --
 ALTER TABLE `userlog`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `userregistration`
 --
 ALTER TABLE `userregistration`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
