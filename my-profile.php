@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 include('includes/config.php');
 date_default_timezone_set('Asia/Kolkata');
@@ -8,11 +9,8 @@ $aid=$_SESSION['id'];
 if(isset($_POST['update']))
 {
 
-$fname=$_POST['fname'];
-$mname=$_POST['mname'];
-$lname=$_POST['lname'];
-$gender=$_POST['gender'];
-$contactno=$_POST['contact'];
+$regno=$_POST['regno'];
+
 $udate = date('d-m-Y h:i:s', time());
 $query="update  userRegistration set firstName=?,middleName=?,lastName=?,gender=?,contactNo=?,updationDate=? where id=?";
 $stmt = $mysqli->prepare($query);
@@ -52,6 +50,7 @@ echo"<script>alert('Profile updated Succssfully');</script>";
 		<div class="content-wrapper">
 			<div class="container-fluid">
 	<?php	
+	$_SESSION['regno'] = $regno;
 $aid=$_SESSION['id'];
 $udate = date('d-m-Y h:i:s', time());
 	$ret="select * from userregistration where id=?";
@@ -77,77 +76,31 @@ Last Updation date : &nbsp; <?php echo $row->updationDate;?>
 									
 
 <div class="panel-body">
-<form method="post" action="" name="registration" class="form-horizontal" onSubmit="return valid();">
+<form method="post" action="admin/registration1.php" name="registration" class="form-horizontal" onSubmit="return valid();">
 								
 								
 
 <div class="form-group">
 <label class="col-sm-2 control-label"> Registration No : </label>
 <div class="col-sm-8">
-<input type="text" name="regno" id="regno"  class="form-control" required="required" value="<?php echo $row->regNo;?>" readonly="true">
+<input type="text" name="regno" id="regno"  class="form-control" required="required" >
 </div>
 </div>
 
-
-<div class="form-group">
-<label class="col-sm-2 control-label">First Name : </label>
-<div class="col-sm-8">
-<input type="text" name="fname" id="fname"  class="form-control" value="<?php echo $row->firstName;?>"   required="required" >
-</div>
-</div>
-
-<div class="form-group">
-<label class="col-sm-2 control-label">Middle Name : </label>
-<div class="col-sm-8">
-<input type="text" name="mname" id="mname"  class="form-control" value="<?php echo $row->middleName;?>"  >
-</div>
-</div>
-
-<div class="form-group">
-<label class="col-sm-2 control-label">Last Name : </label>
-<div class="col-sm-8">
-<input type="text" name="lname" id="lname"  class="form-control" value="<?php echo $row->lastName;?>" required="required">
-</div>
-</div>
-
-<div class="form-group">
-<label class="col-sm-2 control-label">Gender : </label>
-<div class="col-sm-8">
-<select name="gender" class="form-control" required="required">
-<option value="<?php echo $row->gender;?>"><?php echo $row->gender;?></option>
-<option value="male">Male</option>
-<option value="female">Female</option>
-<option value="others">Others</option>
-
-</select>
-</div>
-</div>
-
-<div class="form-group">
-<label class="col-sm-2 control-label">Contact No : </label>
-<div class="col-sm-8">
-<input type="text" name="contact" id="contact"  class="form-control" maxlength="10" value="<?php echo $row->contactNo;?>" required="required">
-</div>
-</div>
+<input type="submit"/>
 
 
-<div class="form-group">
-<label class="col-sm-2 control-label">Email id: </label>
-<div class="col-sm-8">
-<input type="email" name="email" id="email"  class="form-control" value="<?php echo $row->email;?>" readonly>
-<span id="user-availability-status" style="font-size:12px;"></span>
-</div>
-</div>
+
+
+
+
 <?php } ?>
 
-						
+			
+   
 
 
 
-<div class="col-sm-6 col-sm-offset-4">
-
-<input type="submit" name="update" Value="Update Profile" class="btn btn-primary">
-</div>
 </form>
 
 									</div>
