@@ -128,7 +128,11 @@ $('#fpm').val(data);
 <?php
 /* Attempt MySQL server connection. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */
+<<<<<<< HEAD
 $link = mysqli_connect("localhost", "rootdb", "MySqlClient", "mmsslrdb");
+=======
+/*$link = mysqli_connect("localhost", "rootdb", "MySqlClient", "mmsslrdb");
+>>>>>>> 9f2a30e (Delete Button)
  
 // Check connection
 if($link === false){
@@ -178,9 +182,101 @@ if($result = mysqli_query($link, $sql)){
 mysqli_close($link);
 
 
+<<<<<<< HEAD
 
 ?>
 
+=======
+*/
+
+
+
+
+
+$host = "localhost";
+$dbuser = "rootdb";
+$dbpass = "MySqlClient";
+$db = "mmsslrdb";
+
+
+// Create connection
+$conn = new mysqli($host, $dbuser, $dbpass, $db);
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT * FROM registration";
+$result = $conn->query($sql);
+
+
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    echo '
+<table>
+<tr>
+<td>id</td>
+<td>', $row['id'] . $row['id'], '</td>
+</tr>
+<br>
+<tr>
+<td>recidate</td>
+<td>', $row['recidate'], '</td>
+</tr>
+<br>
+<tr>
+<td>devision ID</td>
+<td>', $row['devision'], '</td>
+</tr>
+<br>
+<tr>
+<td>subject</td>
+<td>', $row['subject'], '</td>
+</tr>
+<br>
+<tr>
+<td>title</td>
+<td>', $row['title'], '</td>
+</tr>
+<br>
+<tr>
+<td>recitype</td>
+<td>', $row['recitype'], '</td>
+</tr>
+<br>
+<tr>
+<td>regno</td>
+<td>', $row['regno'], '</td>
+</tr>
+<br>
+<tr>
+<td>regplace</td>
+<td>', $row['regplace'], '</td>
+</tr>
+<br>
+<tr>
+<td>comment</td>
+<td>', $row['comment'], '</td>
+</tr>
+
+
+<td><a href="delete.php?id=' .  $row['id'] .  '">Cancel</a></td>
+</tr>
+
+</table>';
+  }
+} else {
+  echo "0 results";
+}
+$conn->close();
+?>
+
+<script>
+
+
+>>>>>>> 9f2a30e (Delete Button)
 
 
 
@@ -199,7 +295,11 @@ mysqli_close($link);
         id="updateButton" 
         class="btn btn-primary" 
         onclick="productUpdate();">Add</button>
+<<<<<<< HEAD
 </form>
+=======
+
+>>>>>>> 9f2a30e (Delete Button)
 
 									</div>
 									</div>
