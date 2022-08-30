@@ -128,11 +128,7 @@ $('#fpm').val(data);
 <?php
 /* Attempt MySQL server connection. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */
-<<<<<<< HEAD
-$link = mysqli_connect("localhost", "rootdb", "MySqlClient", "mmsslrdb");
-=======
 /*$link = mysqli_connect("localhost", "rootdb", "MySqlClient", "mmsslrdb");
->>>>>>> 9f2a30e (Delete Button)
  
 // Check connection
 if($link === false){
@@ -182,11 +178,6 @@ if($result = mysqli_query($link, $sql)){
 mysqli_close($link);
 
 
-<<<<<<< HEAD
-
-?>
-
-=======
 */
 
 
@@ -276,7 +267,6 @@ $conn->close();
 <script>
 
 
->>>>>>> 9f2a30e (Delete Button)
 
 
 
@@ -295,11 +285,7 @@ $conn->close();
         id="updateButton" 
         class="btn btn-primary" 
         onclick="productUpdate();">Add</button>
-<<<<<<< HEAD
-</form>
-=======
 
->>>>>>> 9f2a30e (Delete Button)
 
 									</div>
 									</div>
