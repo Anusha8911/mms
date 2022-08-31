@@ -63,7 +63,7 @@ $udate = date('d-m-Y h:i:s', time());
 	  	?>	
 				<div class="row">
 					<div class="col-md-12">
-						<h2 class="page-title"><?php echo $row->firstName;?>'s&nbsp;Profile </h2>
+						<h2 class="page-title">Mail Information </h2>
 
 						<div class="row">
 							<div class="col-md-12">
@@ -74,33 +74,152 @@ Last Updation date : &nbsp; <?php echo $row->updationDate;?>
 </div>
 									
 
-<div class="panel-body">
-<form method="post" action="admin/registration1.php" name="registration" class="form-horizontal" onSubmit="return valid();">
+<!--<div class="panel-body">
+<form method="post" action="phpsearch.php" name="registration" class="form-horizontal" onSubmit="return valid();">
 								
 								
-
-<div class="form-group">
+<!--<div class="form-group">
 <label class="col-sm-2 control-label"> Registration No : </label>
 <div class="col-sm-8">
 <input type="text" name="regno" id="regno"  class="form-control" required="required" >
 </div>
 </div>
 
-<input type="submit"/>
+<input type="submit"/> -->
 
-
-
-
-
-
-<?php } ?>
-
+ <!-- (A) SEARCH FORM -->
+ <!--<form method="post" action="admin/registration.php">
+      <h1>SEARCH FOR Mails</h1>
+      <input type="text" name="search" required/>
+      <input type="submit" value="Search"/>
+    </form> -->
+	<?php
+include 'connect_test_db.php';
+$searchErr = '';
+$mail_details='';
+if(isset($_POST['save']))
+{
+    if(!empty($_POST['search']))
+    {
+        $search = $_POST['search'];
+        $stmt = $con->prepare("select * from registration where regno like '%$search%' or devision like '%$search%' or subject like '%$search%' or recidate like '%$search%'");
+        $stmt->execute();
+        $mail_details = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        //print_r($employee_details);
+         
+    }
+    else
+    {
+        $searchErr = "Please enter the information";
+    }
+    
+}
+ 
+?>
+<html>
+<head>
+<title>ajax example</title>
+<link rel="stylesheet" href="bootstrap.css" crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet" href="bootstrap-theme.css" crossorigin="anonymous">
+<style>
+.container{
+    width:70%;
+    height:30%;
+    padding:20px;
+}
+</style>
+</head>
+ 
+<body>
+    <div class="container">
+    <h3><u>Display Search Result</u></h3>
+    <br/><br/>
+    <form class="form-horizontal" action="#" method="post">
+    <div class="row">
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="email"><b>Search Mail Information:</b>:</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" name="search" placeholder="search here">
+            </div>
+            <div class="col-sm-2">
+              <button type="submit" name="save" class="btn btn-success btn-sm">Submit</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <span class="error" style="color:red;">* <?php echo $searchErr;?></span>
+        </div>
+         
+    </div>
+    </form>
+    <br/><br/>
+    <h3><u>Search Result</u></h3><br/>
+    <div class="table-responsive">          
+      <table class="table">
+        <thead>
+          <tr>
+            <th>No.</th>
+			<th>Id</th>
+			<th>Registration No</th>
+			<th>Title</th>
+            <th>Subject</th>
+            <th>Recived Date</th>
+            <th>Recived Type</th>
+            <th>Rgistration Place</th>
+			<th>Devision</th>
+			<th>Comments </th>
 			
-   
+          </tr>
+        </thead>
+        <tbody>
+                <?php
+                 if(!$mail_details)
+                 {
+                    echo '<tr>No data found</tr>';
+                 }
+                 else{
+                    foreach($mail_details as $key=>$value)
+                    {
+                        ?>
+                    <tr>
+                        <td><?php echo $key+1;?></td>
+                        <td><?php echo $value['id'];?></td>
+                        <td><?php echo $value['regno'];?></td>
+                        <td><?php echo $value['title'];?></td>
+						<td><?php echo $value['subject'];?></td>
+                        <td><?php echo $value['recidate'];?></td>
+						<td><?php echo $value['recitype'];?></td>
+						<td><?php echo $value['regplace'];?></td>
+						<td><?php echo $value['devision'];?></td>
+						<td><?php echo $value['comment'];?></td>
+                    </tr>
+                         
+                        <?php
+                    }
+                     
+                 }
+                ?>
+             
+         </tbody>
+      </table>
+    </div>
+</div>
+<script src="jquery-3.2.1.min.js"></script>
+<script src="bootstrap.min.js"></script>
+</body>
+</html>
+			<?php } ?>
+		</div> 
 
 
 
-</form>
+		
+	</body>
+</html>
+
+
+
+
 
 									</div>
 									</div>
