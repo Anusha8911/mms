@@ -45,38 +45,45 @@ if(isset($_GET['del']))
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-md-12">
-						<h2 class="page-title" style="margin-top: 4%">Manage Rooms</h2>
+						<h2 class="page-title" style="margin-top: 4%">Manage Mails</h2>
 						<div class="panel panel-default">
-							<div class="panel-heading">All Room Details</div>
+							<div class="panel-heading">All Mail Details</div>
 							<div class="panel-body">
 								<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 									<thead>
 										<tr>
-											<th>Sno.</th>
+											<th>No.</th>
 										
-											<th>Seater</th>
-											<th>Room No.</th>
-											<th>Fees (PM) </th>
+											<th>Id</th>
+											<th>Registration No.</th>
+											<th>Subject </th>
 
-											<th>Posting Date  </th>
-											<th>Action</th>
+											<th>Title  </th>
+											<th>Recived Date</th>
+											<th>Recived Type </th>
+											<th>Rgistration Place  </th>
+											<th>Devision  </th>
+											<th>Comments  </th>
 										</tr>
 									</thead>
 									<tfoot>
 										<tr>
-											<th>Sno.</th>
-											<th>Seater</th>
-											<th>Room No.</th>
+											<th>No.</th>
+											<th>Id</th>
+											<th>Registration No.</th>
 										
-											<th>Fees (PM) </th>
-											<th>Posting Date  </th>
-											<th>Action</th>
-										</tr>
+											<th>Subject </th>
+											<th>Title </th>
+											<th>Recived Date</th>
+											<th>Recived Type </th>
+											<th>Rgistration Place  </th>
+											<th>Devision  </th>
+											<th>Comments  </th>
 									</tfoot>
 									<tbody>
 <?php	
 $aid=$_SESSION['id'];
-$ret="select * from rooms";
+$ret="select * from registration";
 $stmt= $mysqli->prepare($ret) ;
 //$stmt->bind_param('i',$aid);
 $stmt->execute() ;//ok
@@ -86,10 +93,15 @@ while($row=$res->fetch_object())
 	  {
 	  	?>
 <tr><td><?php echo $cnt;;?></td>
-<td><?php echo $row->seater;?></td>
-<td><?php echo $row->room_no;?></td>
-<td><?php echo $row->fees;?></td>
-<td><?php echo $row->posting_date;?></td>
+<td><?php echo $row->id;?></td>
+<td><?php echo $row->recidate;?></td>
+<td><?php echo $row->devision;?></td>
+<td><?php echo $row->subject;?></td>
+<td><?php echo $row->title;?></td>
+<td><?php echo $row->recitype;?></td>
+<td><?php echo $row->regno;?></td>
+<td><?php echo $row->regplace;?></td>
+<td><?php echo $row->comment;?></td>
 <td><a href="edit-room.php?id=<?php echo $row->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
 <a href="manage-rooms.php?del=<?php echo $row->id;?>" onclick="return confirm("Do you want to delete");"><i class="fa fa-close"></i></a></td>
 										</tr>

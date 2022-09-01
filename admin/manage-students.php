@@ -26,7 +26,7 @@ if(isset($_GET['del']))
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
-	<title>Manage Rooms</title>
+	<title>Manage Mails</title>
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/dataTables.bootstrap.min.css">
@@ -60,31 +60,34 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 					<div class="col-md-12">
 						<h2 class="page-title" style="margin-top:4%">Manage Registred Students</h2>
 						<div class="panel panel-default">
-							<div class="panel-heading">All Room Details</div>
+							<div class="panel-heading">All Mails Details</div>
 							<div class="panel-body">
 								<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 									<thead>
 										<tr>
-											<th>Sno.</th>
-											<th>Student Name</th>
-											<th>Reg no</th>
-											<th>Contact no </th>
-											<th>room no  </th>
-											<th>Seater </th>
-											<th>Staying From </th>
-											<th>Action</th>
+											<th>No.</th>
+											<th>Registration No </th>
+											<th>Id </th>
+											<th>Title </th>
+											<th>Subject </th>
+											<th>Recived Date </th>
+											<th>Recived Type  </th>
+											<th>Devision </th>
+											<th>Comments</th>
 										</tr>
 									</thead>
 									<tfoot>
 										<tr>
-											<th>Sno.</th>
-											<th>Student Name</th>
-											<th>Reg no</th>
-											<th>Contact no </th>
-											<th>Room no  </th>
-											<th>Seater </th>
-											<th>Staying From </th>
-											<th>Action</th>
+											<th>No.</th>
+											<th>Registration No</th>
+											<th>Id</th>
+											<th>Title </th>
+											<th>Subject </th>
+											<th>Recived Date  </th>
+											<th>Recived Type </th>
+											<th>Devision</th>
+											<th>Comments</th>
+											
 										</tr>
 									</tfoot>
 									<tbody>
@@ -100,15 +103,20 @@ while($row=$res->fetch_object())
 	  {
 	  	?>
 <tr><td><?php echo $cnt;;?></td>
-<td><?php echo $row->firstName;?><?php echo $row->middleName;?><?php echo $row->lastName;?></td>
 <td><?php echo $row->regno;?></td>
-<td><?php echo $row->contactno;?></td>
-<td><?php echo $row->roomno;?></td>
-<td><?php echo $row->seater;?></td>
-<td><?php echo $row->stayfrom;?></td>
+<td><?php echo $row->id;?></td>
+<td><?php echo $row->title;?></td>
+<td><?php echo $row->subject;?></td>
+<td><?php echo $row->recidate;?></td>
+<td><?php echo $row->recitype;?></td>
+<td><?php echo $row->devision;?></td>
+
+<td><?php echo $row->comment;?></td>
+
+
 <td>
 <a href="student-details.php?regno=<?php echo $row->regno;?>" title="View Full Details"><i class="fa fa-desktop"></i></a>&nbsp;&nbsp;
-<a href="manage-students.php?del=<?php echo $row->regno;?>" title="Delete Record" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
+<!--<a href="manage-students.php?del=<?php echo $row->regno;?>" title="Delete Record" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td> -->
 										</tr>
 									<?php
 $cnt=$cnt+1;
