@@ -7,7 +7,7 @@ check_login();
 if(isset($_GET['del']))
 {
 	$id=intval($_GET['del']);
-	$adn="delete from rooms where id=?";
+	$adn="delete from registration where id=?";
 		$stmt= $mysqli->prepare($adn);
 		$stmt->bind_param('i',$id);
         $stmt->execute();
@@ -94,13 +94,13 @@ while($row=$res->fetch_object())
 	  	?>
 <tr><td><?php echo $cnt;;?></td>
 <td><?php echo $row->id;?></td>
-<td><?php echo $row->recidate;?></td>
-<td><?php echo $row->devision;?></td>
+<td><?php echo $row->regno;?></td>
 <td><?php echo $row->subject;?></td>
 <td><?php echo $row->title;?></td>
+<td><?php echo $row->recidate;?></td>
 <td><?php echo $row->recitype;?></td>
-<td><?php echo $row->regno;?></td>
 <td><?php echo $row->regplace;?></td>
+<td><?php echo $row->devision;?></td>
 <td><?php echo $row->comment;?></td>
 <td><a href="edit-room.php?id=<?php echo $row->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
 <a href="manage-rooms.php?del=<?php echo $row->id;?>" onclick="return confirm("Do you want to delete");"><i class="fa fa-close"></i></a></td>
