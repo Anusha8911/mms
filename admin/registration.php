@@ -17,6 +17,7 @@ $recitype=$_POST['recitype'];
 $regno=$_POST['regno'];
 $regplace=$_POST['regplace'];
 $comment=$_POST['comment'];
+$action=$_POST['action'];
 
 	$result ="SELECT count(*) FROM userRegistration WHERE email=? || regNo=?";
 		$stmt = $mysqli->prepare($result);
@@ -31,9 +32,9 @@ echo"<script>alert('Registration number or email id already registered.');</scri
 }else{
 
 
-$query="insert into  registration(id,recidate,devision,subject,title,recitype,regno,regplace,comment) values(?,?,?,?,?,?,?,?,?)";
+$query="insert into  registration(id,recidate,devision,subject,title,recitype,regno,regplace,comment,action) values(?,?,?,?,?,?,?,?,?,?)";
 $stmt = $mysqli->prepare($query);
-$rc=$stmt->bind_param('isssssiss',$id,$recidate,$devision,$subject,$title,$recitype,$regno,$regplace,$comment);
+$rc=$stmt->bind_param('isssssisss',$id,$recidate,$devision,$subject,$title,$recitype,$regno,$regplace,$comment,$action);
 $stmt->execute();
 
 $stmt->close();
@@ -214,6 +215,7 @@ $('#fpm').val(data);
 <option value="">Select Devision</option>
 <?php $query ="SELECT * FROM devisions";
 
+
 $stmt2 = $mysqli->prepare($query);
 $stmt2->execute();
 $res=$stmt2->get_result();
@@ -227,6 +229,28 @@ while($row=$res->fetch_object())
 </div>							
 
 
+
+
+
+<div class="form-group">
+<label class="col-sm-2 control-label">Action </label>
+<div class="col-sm-8">
+<select name="action" id="action"class="form-control" required> 
+<option value="">Select Action</option>
+<?php $query ="SELECT * FROM actions";
+
+
+$stmt2 = $mysqli->prepare($query);
+$stmt2->execute();
+$res=$stmt2->get_result();
+while($row=$res->fetch_object())
+{
+
+?>
+<option value="<?php echo $row->action;?>"><?php echo $row->action;?></option>
+<?php } ?>
+</select> </div>
+</div>							
 
 
 

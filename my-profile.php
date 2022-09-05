@@ -138,7 +138,7 @@ if(isset($_POST['save']))
     <form class="form-horizontal" action="#" method="post">
     <div class="row">
         <div class="form-group">
-            <label class="control-label col-sm-4" for="email"><b>Search Mail Information:</b>:</label>
+            <label class="control-label col-sm-4" for="email"><b>Search Mail Information using Registration number or Devision or subject or Recevied date:</b>:</label>
             <div class="col-sm-4">
               <input type="text" class="form-control" name="search" placeholder="search here">
             </div>
@@ -168,6 +168,7 @@ if(isset($_POST['save']))
             <th>Rgistration Place</th>
 			<th>Devision</th>
 			<th>Comments </th>
+            <th> Action</th>
 			
           </tr>
         </thead>
@@ -192,6 +193,7 @@ if(isset($_POST['save']))
 						<td><?php echo $value['regplace'];?></td>
 						<td><?php echo $value['devision'];?></td>
 						<td><?php echo $value['comment'];?></td>
+                        <td><?php echo $value['action'];?></td>
                     </tr>
                          
                         <?php

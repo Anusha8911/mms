@@ -8,10 +8,17 @@ if(isset($_POST['submit']))
 {
 $regno=$_POST['regno'];
 $title=$_POST['title'];
+$regplace=$_POST['regplace'];
+$subject=$_POST['subject'];
+$comment=$_POST['comment'];
+$devision=$_POST['devision'];
+$recidate=$_POST['recidate'];
+$recitype=$_POST['recitype'];
+$action=$_POST['action'];
 $id=$_GET['id'];
-$query="update registration set regno=?,title=? where id=?";
+$query="update registration set regno=?,title=?,regplace=?,subject=?,comment=?,devision=?,recidate=?,recitype=?,action=? where id=?";
 $stmt = $mysqli->prepare($query);
-$rc=$stmt->bind_param('isi',$regno,$title,$id);
+$rc=$stmt->bind_param('isssssssis',$regno,$title,$regplace,$subject,$comment,$devision,$recidate,$recitype,$action,$id);
 $stmt->execute();
 echo"<script>alert('Mail Details has been Updated successfully');</script>";
 }
@@ -48,12 +55,12 @@ echo"<script>alert('Mail Details has been Updated successfully');</script>";
 				<div class="row">
 					<div class="col-md-12">
 					
-						<h2 class="page-title">Edit Room Details </h2>
+						<h2 class="page-title">Edit Mail Details </h2>
 	
 						<div class="row">
 							<div class="col-md-12">
 								<div class="panel panel-default">
-									<div class="panel-heading">Edit Room Details</div>
+									<div class="panel-heading">Edit Mail Details</div>
 									<div class="panel-body">
 										<form method="post" class="form-horizontal">
 												<?php	
@@ -73,14 +80,33 @@ echo"<script>alert('Mail Details has been Updated successfully');</script>";
 					<div class="col-sm-8">
 					<input type="text"  name="title" value="<?php echo $row->title;?>"  class="form-control"> </div>
 					</div>
-				 <div class="form-group">
-				<label class="col-sm-2 control-label">Registration no </label>
-		<div class="col-sm-8">
-	<input type="text" class="form-control" name="regno" id="regno" value="<?php echo $row->regno;?>" disabled>
-	<span class="help-block m-b-none">
-													Registration no can't be changed.</span>
-						 </div>
-						</div>
+
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Registration No.  </label>
+					<div class="col-sm-8">
+					<input type="text"  name="regno" value="<?php echo $row->regno;?>"  class="form-control"> </div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Registration place  </label>
+					<div class="col-sm-8">
+					<input type="text"  name="regplace" value="<?php echo $row->regplace;?>"  class="form-control"> </div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Subject</label>
+					<div class="col-sm-8">
+					<input type="text"  name="subject" value="<?php echo $row->subject;?>"  class="form-control"> </div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Comment</label>
+					<div class="col-sm-8">
+					<input type="text"  name="comment" value="<?php echo $row->comment;?>"  class="form-control"> </div>
+					</div>
+
+
 <div class="form-group">
 									<label class="col-sm-2 control-label">Id </label>
 									<div class="col-sm-8">
@@ -88,6 +114,37 @@ echo"<script>alert('Mail Details has been Updated successfully');</script>";
 												</div>
 											</div>
 
+
+	<div class="form-group">
+	<label class="col-sm-2 control-label">Devision</label>
+	<div class="col-sm-8">
+	<input type="text"  name="devision" value="<?php echo $row->devision;?>"  class="form-control"> </div>
+	</div>
+
+
+	
+
+
+	
+	<div class="form-group">
+	<label class="col-sm-2 control-label">Received Date</label>
+	<div class="col-sm-8">
+	<input type="text"  name="recidate" value="<?php echo $row->recidate;?>"  class="form-control"> </div>
+	</div>
+
+	<div class="form-group">
+	<label class="col-sm-2 control-label">Received type</label>
+	<div class="col-sm-8">
+	<input type="text"  name="recitype" value="<?php echo $row->recitype;?>"  class="form-control"> </div>
+	</div>
+
+
+
+	<div class="form-group">
+	<label class="col-sm-2 control-label">Action</label>
+	<div class="col-sm-8">
+	<input type="text"  name="action" value="<?php echo $row->action;?>"  class="form-control"> </div>
+	</div>
 
 <?php } ?>
 												<div class="col-sm-8 col-sm-offset-2">

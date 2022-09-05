@@ -128,6 +128,10 @@ while($row=$res->fetch_object())
 </tr>
 
 
+<tr>
+<td><b>Action :</b></td>
+<td colspan="6"><?php echo $row->action;?></td>
+</tr>
 
 
 
