@@ -135,6 +135,25 @@ while($row=$res->fetch_object())
 
 
 
+<tr>
+<td><b>Branch :</b></td>
+<td colspan="6"><?php echo $row->branch;?></td>
+</tr>
+
+
+
+<tr>
+<td><b>Main Mail Reciver :</b></td>
+<td colspan="6"><?php echo $row->mainreciver;?></td>
+</tr>
+
+
+
+<tr>
+<td><b>Position :</b></td>
+<td colspan="6"><?php echo $row->position;?></td>
+</tr>
+
 
 
 

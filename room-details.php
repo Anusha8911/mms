@@ -1,12 +1,27 @@
 <?php
+
 session_start();
 include('includes/config.php');
+date_default_timezone_set('Asia/Kolkata');
 include('includes/checklogin.php');
 check_login();
+$aid=$_SESSION['id'];
+if(isset($_POST['update']))
+{
+
+$regno=$_POST['regno'];
+
+$udate = date('d-m-Y h:i:s', time());
+$query="update  userRegistration set firstName=?,middleName=?,lastName=?,gender=?,contactNo=?,updationDate=? where id=?";
+$stmt = $mysqli->prepare($query);
+$rc=$stmt->bind_param('ssssisi',$fname,$mname,$lname,$gender,$contactno,$udate,$aid);
+$stmt->execute();
+echo"<script>alert('Profile updated Succssfully');</script>";
+}
 ?>
+
 <!doctype html>
 <html lang="en" class="no-js">
-
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,192 +29,218 @@ check_login();
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
-	<title>Room Details</title>
+	<title>Profile Updation</title>
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/dataTables.bootstrap.min.css">
+	<link rel="stylesheet" href="css/dataTables.bootstrap.min.css">>
 	<link rel="stylesheet" href="css/bootstrap-social.css">
 	<link rel="stylesheet" href="css/bootstrap-select.css">
 	<link rel="stylesheet" href="css/fileinput.min.css">
 	<link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css">
 	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-
-<script language="javascript" type="text/javascript">
-var popUpWin=0;
-function popUpWindow(URLStr, left, top, width, height)
-{
- if(popUpWin)
-{
-if(!popUpWin.closed) popUpWin.close();
-}
-popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=yes,width='+510+',height='+430+',left='+left+', top='+top+',screenX='+left+',screenY='+top+'');
-}
-
-</script>
+<script type="text/javascript" src="js/jquery-1.11.3-jquery.min.js"></script>
+<script type="text/javascript" src="js/validation.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 
 </head>
-
 <body>
 	<?php include('includes/header.php');?>
-
 	<div class="ts-main-content">
-			<?php include('includes/sidebar.php');?>
+		<?php include('includes/sidebar.php');?>
 		<div class="content-wrapper">
 			<div class="container-fluid">
-				<div class="row" id="print">
-
-
-					<div class="col-md-12">
-						<h2 class="page-title" style="margin-top:3%">Rooms Details</h2>
-						<div class="panel panel-default">
-							<div class="panel-heading">All Room Details</div>
-							<div class="panel-body">
-			<table id="zctb" class="table table-bordered " cellspacing="0" width="100%" border="1">
-									
-						 <span style="float:left" ><i class="fa fa-print fa-2x" aria-hidden="true" OnClick="CallPrint(this.value)" style="cursor:pointer" title="Print the Report"></i></span>			
-									<tbody>
-<?php	
-$aid=$_SESSION['login'];
-	$ret="select * from registration where (id=? || regno	=?)";
-$stmt= $mysqli->prepare($ret) ;
-$stmt->bind_param('ss',$aid,$aid);
-$stmt->execute() ;
-$res=$stmt->get_result();
-$cnt=1;
-while($row=$res->fetch_object())
+	<?php	
+$aid=$_SESSION['id'];
+$udate = date('d-m-Y h:i:s', time());
+	$ret="select * from userregistration where id=?";
+		$stmt= $mysqli->prepare($ret) ;
+	 $stmt->bind_param('i',$aid);
+	 $stmt->execute() ;//ok
+	 $res=$stmt->get_result();
+	 //$cnt=1;
+	   while($row=$res->fetch_object())
 	  {
-	  	?>
+	  	?>	
+				<div class="row">
+					<div class="col-md-12">
+						<h2 class="page-title">Mail Information </h2>
 
-<tr>
-<td colspan="6" style="text-align:center; color:blue"><h3>Room Realted Info</h3></td>
-</tr>
-<tr>
-	<th>Registration Number :</th>
-<td><?php echo $row->regno;?></td>
-<th>Apply Date :</th>
-<td colspan="3"><?php echo $row->postingDate;?></td>
-</tr>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="panel panel-primary">
+									<div class="panel-heading">
 
+Last Updation date : &nbsp; <?php echo $row->updationDate;?> 
+</div>
+									
 
+<!--<div class="panel-body">
+<form method="post" action="phpsearch.php" name="registration" class="form-horizontal" onSubmit="return valid();">
+								
+								
+<!--<div class="form-group">
+<label class="col-sm-2 control-label"> Registration No : </label>
+<div class="col-sm-8">
+<input type="text" name="regno" id="regno"  class="form-control" required="required" >
+</div>
+</div>
 
-<tr>
-<td><b>Room no :</b></td>
-<td><?php echo $row->roomno;?></td>
-<td><b>Seater :</b></td>
-<td><?php echo $row->seater;?></td>
-<td><b>Fees PM :</b></td>
-<td><?php echo $fpm=$row->feespm;?></td>
-</tr>
+<input type="submit"/> -->
 
-<tr>
-<td><b>Food Status:</b></td>
-<td>
-<?php if($row->foodstatus==0)
+ <!-- (A) SEARCH FORM -->
+ <!--<form method="post" action="admin/registration.php">
+      <h1>SEARCH FOR Mails</h1>
+      <input type="text" name="search" required/>
+      <input type="submit" value="Search"/>
+    </form> -->
+	<?php
+include 'connect_test_db.php';
+$searchErr = '';
+$mail_details='';
+if(isset($_POST['save']))
 {
-echo "Without Food";
+    if(!empty($_POST['search']))
+    {
+        $search = $_POST['search'];
+        $stmt = $con->prepare("select * from registration where regno like '%$search%' or devision like '%$search%' or subject like '%$search%' or recidate like '%$search%'");
+        $stmt->execute();
+        $mail_details = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        //print_r($employee_details);
+         
+    }
+    else
+    {
+        $searchErr = "Please enter the information";
+    }
+    
 }
-else
-{
-echo "With Food";
+ 
+?>
+<html>
+<head>
+<title>ajax example</title>
+<link rel="stylesheet" href="bootstrap.css" crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet" href="bootstrap-theme.css" crossorigin="anonymous">
+<style>
+.container{
+    width:100%;
+    height:30%;
+    padding:20px;
 }
-;?></td>
-<td><b>Stay From :</b></td>
-<td><?php echo $row->stayfrom;?></td>
-<td><b>Duration:</b></td>
-<td><?php echo $dr=$row->duration;?> Months</td>
-</tr>
-
-<tr><th>Hostel Fee:</th>
-<td><?php echo $hf=$dr*$fpm?></td>
-<th>Food Fee:</th>
-<td colspan="3"><?php 
-if($row->foodstatus==1)
-{ 
-echo $ff=(2000*$dr);
-} else { 
-echo $ff=0;
-echo "<span style='padding-left:2%; color:red;'>(You booked hostel without food).<span>";
-}?></td>
-</tr>
-<tr>
-<th>Total Fee :</th>
-<th colspan="5"><?php echo $hf+$ff;?></th>
-</tr>
-<tr>
-<td colspan="6" style="color:red"><h4>Personal Info</h4></td>
-</tr>
-
-<tr>
-<td><b>Reg No. :</b></td>
-<td><?php echo $row->regno;?></td>
-<td><b>Full Name :</b></td>
-<td><?php echo $row->firstName;?><?php echo $row->middleName;?><?php echo $row->lastName;?></td>
-<td><b>Email :</b></td>
-<td><?php echo $row->emailid;?></td>
-</tr>
-
-
-<tr>
-<td><b>Contact No. :</b></td>
-<td><?php echo $row->contactno;?></td>
-<td><b>Gender :</b></td>
-<td><?php echo $row->gender;?></td>
-<td><b>Course :</b></td>
-<td><?php echo $row->course;?></td>
-</tr>
-
-
-<tr>
-<td><b>Emergency Contact No. :</b></td>
-<td><?php echo $row->egycontactno;?></td>
-<td><b>Guardian Name :</b></td>
-<td><?php echo $row->guardianName;?></td>
-<td><b>Guardian Relation :</b></td>
-<td><?php echo $row->guardianRelation;?></td>
-</tr>
-
-<tr>
-<td><b>Guardian Contact No. :</b></td>
-<td colspan="6"><?php echo $row->guardianContactno;?></td>
-</tr>
-
-<tr>
-<td colspan="6" style="color:blue"><h4>Addresses</h4></td>
-</tr>
-<tr>
-<td><b>Correspondense Address</b></td>
-<td colspan="2">
-<?php echo $row->corresAddress;?><br />
-<?php echo $row->corresCIty;?>, <?php echo $row->corresPincode;?><br />
-<?php echo $row->corresState;?>
-
-
-</td>
-<td><b>Permanent Address</b></td>
-<td colspan="2">
-<?php echo $row->pmntAddress;?><br />
-<?php echo $row->pmntCity;?>, <?php echo $row->pmntPincode;?><br />
-<?php echo $row->pmnatetState;?>	
-
-</td>
-</tr>
-
-
-<?php
-$cnt=$cnt+1;
-} ?>
-</tbody>
-</table>
+</style>
+</head>
+ 
+<body>
+    <div class="container">
+    <h3><u>Display Search Result</u></h3>
+    <br/><br/>
+    <form class="form-horizontal" action="#" method="post">
+    <div class="row">
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="email"><b>Search Mail Information using Registration number or Devision or subject or Recevied date:</b>:</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" name="search" placeholder="search here">
+            </div>
+            <div class="col-sm-2">
+              <button type="submit" name="save" class="btn btn-success btn-sm">Submit</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <span class="error" style="color:red;">* <?php echo $searchErr;?></span>
+        </div>
+         
+    </div>
+    </form>
+    <br/><br/>
+    <h3><u>Search Result</u></h3><br/>
+    <div class="table-responsive">          
+      <table class="table">
+        <thead>
+          <tr>
+            <th>No.</th>
+			<th>Id</th>
+			<th>Registration No</th>
+			<th>Title</th>
+            <th>Subject</th>
+            <th>Recived Date</th>
+            <th>Recived Type</th>
+            <th>Rgistration Place</th>
+			<th>Devision</th>
+			<th>Comments </th>
+            <th> Action</th>
+			<th>Branch</th>
+			<th>Main Mail Reciver </th>
+            <th> Position</th>
+			
+          </tr>
+        </thead>
+        <tbody>
+                <?php
+                 if(!$mail_details)
+                 {
+                    echo '<tr>No data found</tr>';
+                 }
+                 else{
+                    foreach($mail_details as $key=>$value)
+                    {
+                        ?>
+                    <tr>
+                        <td><?php echo $key+1;?></td>
+                        <td><?php echo $value['id'];?></td>
+                        <td><?php echo $value['regno'];?></td>
+                        <td><?php echo $value['title'];?></td>
+						<td><?php echo $value['subject'];?></td>
+                        <td><?php echo $value['recidate'];?></td>
+						<td><?php echo $value['recitype'];?></td>
+						<td><?php echo $value['regplace'];?></td>
+						<td><?php echo $value['devision'];?></td>
+						<td><?php echo $value['comment'];?></td>
+                        <td><?php echo $value['action'];?></td>
+						<td><?php echo $value['branch'];?></td>
+						<td><?php echo $value['mainreciver'];?></td>
+                        <td><?php echo $value['position'];?></td>
+                    </tr>
+                         
+                        <?php
+                    }
+                     
+                 }
+                ?>
+             
+         </tbody>
+      </table>
+    </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+<script src="jquery-3.2.1.min.js"></script>
+<script src="bootstrap.min.js"></script>
+</body>
+</html>
+			<?php } ?>
+		</div> 
 
-	<!-- Loading Scripts -->
+
+
+		
+	</body>
+</html>
+
+
+
+
+
+									</div>
+									</div>
+								</div>
+							</div>
+						</div>
+							</div>
+						</div>
+					</div>
+				</div> 	
+			</div>
+		</div>
+	</div>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap-select.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -209,20 +250,35 @@ $cnt=$cnt+1;
 	<script src="js/fileinput.js"></script>
 	<script src="js/chartData.js"></script>
 	<script src="js/main.js"></script>
- <script>
-$(function () {
-$("[data-toggle=tooltip]").tooltip();
+</body>
+<script type="text/javascript">
+	$(document).ready(function(){
+        $('input[type="checkbox"]').click(function(){
+            if($(this).prop("checked") == true){
+                $('#paddress').val( $('#address').val() );
+                $('#pcity').val( $('#city').val() );
+                $('#pstate').val( $('#state').val() );
+                $('#ppincode').val( $('#pincode').val() );
+            } 
+            
+        });
     });
-function CallPrint(strid) {
-var prtContent = document.getElementById("print");
-var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
-WinPrint.document.write(prtContent.innerHTML);
-WinPrint.document.close();
-WinPrint.focus();
-WinPrint.print();
-WinPrint.close();
+</script>
+	<script>
+function checkAvailability() {
+
+$("#loaderIcon").show();
+jQuery.ajax({
+url: "check_availability.php",
+data:'emailid='+$("#email").val(),
+type: "POST",
+success:function(data){
+$("#user-availability-status").html(data);
+$("#loaderIcon").hide();
+},
+error:function (){}
+});
 }
 </script>
-</body>
 
 </html>

@@ -55,7 +55,7 @@ check_login();
                                     <div class="panel panel-default">
                                         <div class="panel-body bk-success text-light">
                                             <div class="stat-panel text-center">
-                                                <div class="stat-panel-number h1 ">My Room</div>
+                                                <div class="stat-panel-number h1 ">Search Mail</div>
                                             </div>
                                         </div>
                                         <a href="room-details.php" class="block-anchor panel-footer text-center">See All &nbsp; <i class="fa fa-arrow-right"></i></a>
