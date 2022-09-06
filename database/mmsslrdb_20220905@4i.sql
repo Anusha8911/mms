@@ -78,12 +78,6 @@ INSERT INTO `devisions` (`id`, `devision_name`) VALUES
 (2, 'CR'),
 (3, 'COM'),
 (4, 'SRS');
-
-
-
--------------------------------------------------------
-
-
 -- --------------------------------------------------------
 
 --
@@ -101,7 +95,7 @@ CREATE TABLE `registration` (
   `title` VARCHAR(500) DEFAULT NULL,
   `recitype` VARCHAR(500) DEFAULT NULL,
   `regplace` VARCHAR(250) DEFAULT NULL,
-  `action` VARCHAR(500) DEFAULT NULL,
+  `action` VARCHAR(1000) DEFAULT NULL,
  `comment` VARCHAR(500)
 
 
@@ -195,7 +189,7 @@ INSERT INTO `states` (`id`, `State`) VALUES
 -- --------------------------------------------------------
 CREATE TABLE `actions` (
   `id` INT(11) NOT NULL,
-  `action` VARCHAR(500) DEFAULT NULL
+  `action` VARCHAR(1000) DEFAULT NULL
 ) ENGINE=MYISAM DEFAULT CHARSET=latin1;
 
 --
@@ -278,11 +272,6 @@ ALTER TABLE `admin`
 ALTER TABLE `devisions`
   ADD PRIMARY KEY (`id`);
 
-
-
-
-
-
 --
 -- Indexes for table `registration`
 --
@@ -335,9 +324,6 @@ ALTER TABLE `devisions`
   MODIFY `id` INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
-
-
-
 -- AUTO_INCREMENT for table `registration`
 --
 ALTER TABLE `registration`
@@ -357,7 +343,7 @@ ALTER TABLE `states`
 
 
 ALTER TABLE `actions`
-  MODIFY `id` INT(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` INT(11) NOT NULL;
 --
 -- AUTO_INCREMENT for table `userlog`
 --

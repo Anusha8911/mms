@@ -75,6 +75,9 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 											<th>Devision </th>
 											<th>Comments</th>
 											<th>Action</th>
+											<th>Branch </th>
+											<th>Main Receiver</th>
+											<th>Positions</th>
 										</tr>
 									</thead>
 									<tfoot>
@@ -89,6 +92,9 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 											<th>Devision</th>
 											<th>Comments</th>
 											<th>Action</th>
+											<th>Branch </th>
+											<th>Main Receiver</th>
+											<th>Positions</th>
 											
 										</tr>
 									</tfoot>
@@ -115,6 +121,9 @@ while($row=$res->fetch_object())
 
 <td><?php echo $row->comment;?></td>
 <td><?php echo $row->action;?></td>
+<td><?php echo $row->branch;?></td>
+<td><?php echo $row->mainreciver;?></td>
+<td><?php echo $row->position;?></td>
 
 <td>
 <a href="student-details.php?regno=<?php echo $row->regno;?>" title="View Full Details"><i class="fa fa-desktop"></i></a>&nbsp;&nbsp;

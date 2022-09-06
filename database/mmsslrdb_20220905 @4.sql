@@ -84,6 +84,22 @@ INSERT INTO `devisions` (`id`, `devision_name`) VALUES
 -------------------------------------------------------
 
 
+CREATE TABLE `positions` (
+  `id` INT(11),
+  `position_name` VARCHAR(255) DEFAULT NULL
+
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `positions`
+--
+
+INSERT INTO `positions` (`id`, `position_name`) VALUES
+(1, 'AO'),
+(2, 'BO'),
+(3, 'DO'),
+(4, 'MSO'),
+(5,'Branch Member');
 -- --------------------------------------------------------
 
 --
@@ -280,7 +296,8 @@ ALTER TABLE `devisions`
 
 
 
-
+  ALTER TABLE `positions`
+  ADD PRIMARY KEY (`id`);
 
 
 --
@@ -336,6 +353,9 @@ ALTER TABLE `devisions`
 
 --
 
+
+  ALTER TABLE `positions`
+  MODIFY `id` INT(11) NOT NULL AUTO_INCREMENT;
 
 
 -- AUTO_INCREMENT for table `registration`

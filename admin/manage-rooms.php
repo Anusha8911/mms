@@ -65,6 +65,9 @@ if(isset($_GET['del']))
 											<th>Devision  </th>
 											<th>Comments  </th>
 											<th>Action  </th>
+											<th>Branch  </th>
+											<th>Main Receiver  </th>
+											<th>Positions  </th>
 										</tr>
 									</thead>
 									<tfoot>
@@ -81,6 +84,9 @@ if(isset($_GET['del']))
 											<th>Devision  </th>
 											<th>Comments  </th>
 											<th>Action  </th>
+											<th>Branch  </th>
+											<th>Main Receiver  </th>
+											<th>Positions  </th>
 									</tfoot>
 									<tbody>
 <?php	
@@ -105,6 +111,9 @@ while($row=$res->fetch_object())
 <td><?php echo $row->devision;?></td>
 <td><?php echo $row->comment;?></td>
 <td><?php echo $row->action;?></td>
+<td><?php echo $row->branch;?></td>
+<td><?php echo $row->mainreciver;?></td>
+<td><?php echo $row->position;?></td>
 <td><a href="edit-room.php?id=<?php echo $row->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
 <a href="manage-rooms.php?del=<?php echo $row->id;?>" onclick="return confirm("Do you want to delete");"><i class="fa fa-close"></i></a></td>
 										</tr>

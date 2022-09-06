@@ -15,10 +15,13 @@ $devision=$_POST['devision'];
 $recidate=$_POST['recidate'];
 $recitype=$_POST['recitype'];
 $action=$_POST['action'];
+$branch=$_POST['branch'];
+$mainreciver=$_POST['mainreciver'];
+$position=$_POST['position'];
 $id=$_GET['id'];
-$query="update registration set regno=?,title=?,regplace=?,subject=?,comment=?,devision=?,recidate=?,recitype=?,action=? where id=?";
+$query="update registration set regno=?,title=?,regplace=?,subject=?,comment=?,devision=?,recidate=?,recitype=?,action=?,branch=?,mainreciver=?,position=? where id=?";
 $stmt = $mysqli->prepare($query);
-$rc=$stmt->bind_param('isssssssis',$regno,$title,$regplace,$subject,$comment,$devision,$recidate,$recitype,$action,$id);
+$rc=$stmt->bind_param('isssssssssssi',$regno,$title,$regplace,$subject,$comment,$devision,$recidate,$recitype,$action,$branch,$mainreciver,$position,$id);
 $stmt->execute();
 echo"<script>alert('Mail Details has been Updated successfully');</script>";
 }
@@ -145,6 +148,32 @@ echo"<script>alert('Mail Details has been Updated successfully');</script>";
 	<div class="col-sm-8">
 	<input type="text"  name="action" value="<?php echo $row->action;?>"  class="form-control"> </div>
 	</div>
+
+
+	<div class="form-group">
+	<label class="col-sm-2 control-label">Branch</label>
+	<div class="col-sm-8">
+	<input type="text"  name="branch" value="<?php echo $row->branch;?>"  class="form-control"> </div>
+	</div>
+
+
+
+
+	<div class="form-group">
+	<label class="col-sm-2 control-label">Main Mail Reciver</label>
+	<div class="col-sm-8">
+	<input type="text"  name="mainreciver" value="<?php echo $row->mainreciver;?>"  class="form-control"> </div>
+	</div>
+
+
+	<div class="form-group">
+	<label class="col-sm-2 control-label">Position</label>
+	<div class="col-sm-8">
+	<input type="text"  name="position" value="<?php echo $row->position;?>"  class="form-control"> </div>
+	</div>
+
+
+
 
 <?php } ?>
 												<div class="col-sm-8 col-sm-offset-2">

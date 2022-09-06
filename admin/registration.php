@@ -18,7 +18,9 @@ $regno=$_POST['regno'];
 $regplace=$_POST['regplace'];
 $comment=$_POST['comment'];
 $action=$_POST['action'];
-
+$branch=$_POST['branch'];
+$mainreciver=$_POST['mainreciver'];
+$position=$_POST['position'];
 	$result ="SELECT count(*) FROM userRegistration WHERE email=? || regNo=?";
 		$stmt = $mysqli->prepare($result);
 		$stmt->bind_param('ss',$email,$regno);
@@ -32,9 +34,9 @@ echo"<script>alert('Registration number or email id already registered.');</scri
 }else{
 
 
-$query="insert into  registration(id,recidate,devision,subject,title,recitype,regno,regplace,comment,action) values(?,?,?,?,?,?,?,?,?,?)";
+$query="insert into  registration(id,recidate,devision,subject,title,recitype,regno,regplace,comment,action,branch,mainreciver,position) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 $stmt = $mysqli->prepare($query);
-$rc=$stmt->bind_param('isssssisss',$id,$recidate,$devision,$subject,$title,$recitype,$regno,$regplace,$comment,$action);
+$rc=$stmt->bind_param('isssssissssss',$id,$recidate,$devision,$subject,$title,$recitype,$regno,$regplace,$comment,$action,$branch,$mainreciver,$position);
 $stmt->execute();
 
 $stmt->close();
@@ -248,6 +250,82 @@ while($row=$res->fetch_object())
 
 ?>
 <option value="<?php echo $row->action;?>"><?php echo $row->action;?></option>
+<?php } ?>
+</select> </div>
+</div>							
+
+
+
+
+
+
+
+
+<div class="form-group">
+<label class="col-sm-2 control-label">Branch </label>
+<div class="col-sm-8">
+<select name="branch" id="branch"class="form-control" required> 
+<option value="">Select Branch</option>
+<?php $query ="SELECT * FROM branches";
+
+
+$stmt2 = $mysqli->prepare($query);
+$stmt2->execute();
+$res=$stmt2->get_result();
+while($row=$res->fetch_object())
+{
+
+?>
+<option value="<?php echo $row->branch_name;?>"><?php echo $row->branch_name;?></option>
+<?php } ?>
+</select> </div>
+</div>							
+
+
+
+
+<div class="form-group">
+<label class="col-sm-2 control-label">Main Mail Receiver </label>
+<div class="col-sm-8">
+<select name="mainreciver" id="mainreciver"class="form-control" required> 
+<option value="">Select Main Mail Receiver </option>
+<?php $query ="SELECT * FROM mainmailrecivers";
+
+
+$stmt2 = $mysqli->prepare($query);
+$stmt2->execute();
+$res=$stmt2->get_result();
+while($row=$res->fetch_object())
+{
+
+?>
+<option value="<?php echo $row->mainmailreciver_name;?>"><?php echo $row->mainmailreciver_name;?></option>
+<?php } ?>
+</select> </div>
+</div>							
+
+
+
+
+
+
+
+<div class="form-group">
+<label class="col-sm-2 control-label">Position </label>
+<div class="col-sm-8">
+<select name="position" id="position"class="form-control" required> 
+<option value="">Select Position</option>
+<?php $query ="SELECT * FROM positions";
+
+
+$stmt2 = $mysqli->prepare($query);
+$stmt2->execute();
+$res=$stmt2->get_result();
+while($row=$res->fetch_object())
+{
+
+?>
+<option value="<?php echo $row->position_name;?>"><?php echo $row->position_name;?></option>
 <?php } ?>
 </select> </div>
 </div>							
