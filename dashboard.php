@@ -45,10 +45,10 @@ check_login();
                                     <div class="panel panel-default">
                                         <div class="panel-body bk-primary text-light">
                                             <div class="stat-panel text-center">
-                                                <div class="stat-panel-number h1 ">My Profile</div>
+                                                <div class="stat-panel-number h1 ">My New Mail</div>
                                             </div>
                                         </div>
-                                        <a href="my-profile.php" class="block-anchor panel-footer">Full Detail <i class="fa fa-arrow-right"></i></a>
+                                        <a href="gmrmail.php" class="block-anchor panel-footer">Full Detail <i class="fa fa-arrow-right"></i></a>
                                     </div>
                                 </div>
                                 <div class="col-md-3">

@@ -1,45 +1,24 @@
 <?php
 session_start();
 include('includes/config.php');
-if(isset($_POST['submit']))
-{
-	$id=$_POST['id'];
-	$recidate=$_POST['recidate'];
-	$devision=$_POST['devision'];
-	$subject=$_POST['subject'];
-	$title=$_POST['title'];
-	$recitype=$_POST['recitype'];
-	//$institute=$_POST['institute'];
-	$regno=$_POST['regno'];
-	$regplace=$_POST['regplace'];
-	$comment=$_POST['comment'];
-	$action=$_POST['action'];
-	$branch=$_POST['branch'];
-	$mainreciver=$_POST['mainreciver'];
-	$position=$_POST['position'];
-    $result ="SELECT count(*) FROM userRegistration WHERE email=? || regNo=?";
-		$stmt = $mysqli->prepare($result);
-		$stmt->bind_param('ss',$email,$regno);
-		$stmt->execute();
-$stmt->bind_result($count);
-$stmt->fetch();
-$stmt->close();
-if($count>0)
-{
-echo"<script>alert('Registration number or email id already registered.');</script>";
-}else{
+include('includes/checklogin.php');
+check_login();
 
-$query="insert into  userRegistration(regNo,firstName,middleName,lastName,gender,contactNo,email,password) values(?,?,?,?,?,?,?,?)";
-$stmt = $mysqli->prepare($query);
-$rc=$stmt->bind_param('sssssiss',$regno,$fname,$mname,$lname,$gender,$contactno,$emailid,$password);
-$stmt->execute();
-echo"<script>alert('Student Succssfully register');</script>";
-}
+if(isset($_GET['del']))
+{
+	$id=intval($_GET['del']);
+	$adn="delete from registration where regNo=?";
+		$stmt= $mysqli->prepare($adn);
+		$stmt->bind_param('i',$id);
+        $stmt->execute();
+        $stmt->close();	   
+
+
 }
 ?>
-
 <!doctype html>
 <html lang="en" class="no-js">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -47,113 +26,135 @@ echo"<script>alert('Student Succssfully register');</script>";
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
-	<title>User Registration</title>
+	<title>Manage Mails</title>
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/dataTables.bootstrap.min.css">>
+	<link rel="stylesheet" href="css/dataTables.bootstrap.min.css">
 	<link rel="stylesheet" href="css/bootstrap-social.css">
 	<link rel="stylesheet" href="css/bootstrap-select.css">
 	<link rel="stylesheet" href="css/fileinput.min.css">
 	<link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css">
 	<link rel="stylesheet" href="css/style.css">
-<script type="text/javascript" src="js/jquery-1.11.3-jquery.min.js"></script>
-<script type="text/javascript" src="js/validation.min.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
-<script type="text/javascript">
-function valid()
+<script language="javascript" type="text/javascript">
+var popUpWin=0;
+function popUpWindow(URLStr, left, top, width, height)
 {
-if(document.registration.password.value!= document.registration.cpassword.value)
+ if(popUpWin)
 {
-alert("Password and Re-Type Password Field do not match  !!");
-document.registration.cpassword.focus();
-return false;
+if(!popUpWin.closed) popUpWin.close();
 }
-return true;
+popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=yes,width='+510+',height='+430+',left='+left+', top='+top+',screenX='+left+',screenY='+top+'');
 }
 </script>
+
 </head>
+
 <body>
 	<?php include('includes/header.php');?>
+
 	<div class="ts-main-content">
-		<?php include('includes/sidebar.php');?>
+			<?php include('includes/sidebar.php');?>
 		<div class="content-wrapper">
 			<div class="container-fluid">
-
 				<div class="row">
 					<div class="col-md-12">
+						<h2 class="page-title" style="margin-top:4%">Manage Registred Students</h2>
+						<div class="panel panel-default">
+							<div class="panel-heading">All Mails Details</div>
+							<div class="panel-body">
+								<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+									<thead>
+										<tr>
+											<th>No.</th>
+											<th>Registration No </th>
+											<th>Id </th>
+											<th>Title </th>
+											<th>Subject </th>
+											<th>Recived Date </th>
+											<th>Recived Type  </th>
+											<th>Devision </th>
+											<th>Comments</th>
+											<th>Action</th>
+											<th>Branch </th>
+											<th>Main Receiver</th>
+											<th>Positions</th>
+											<th>Action 2</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th>No.</th>
+											<th>Registration No</th>
+											<th>Id</th>
+											<th>Title </th>
+											<th>Subject </th>
+											<th>Recived Date  </th>
+											<th>Recived Type </th>
+											<th>Devision</th>
+											<th>Comments</th>
+											<th>Action</th>
+											<th>Branch </th>
+											<th>Main Receiver</th>
+											<th>Positions</th>
+											<th>Action 2</th>
+										</tr>
+									</tfoot>
+									<tbody>
+<?php	
+$aid=$_SESSION['id'];
+$ret="select * from registration where mainreciver='GMR'";
+$stmt= $mysqli->prepare($ret) ;
+//$stmt->bind_param('i',$aid);
+$stmt->execute() ;//ok
+$res=$stmt->get_result();
+$cnt=1;
+while($row=$res->fetch_object())
+	  {
+	  	?>
+<tr><td><?php echo $cnt;;?></td>
+<td><?php echo $row->regno;?></td>
+<td><?php echo $row->id;?></td>
+<td><?php echo $row->title;?></td>
+<td><?php echo $row->subject;?></td>
+<td><?php echo $row->recidate;?></td>
+<td><?php echo $row->recitype;?></td>
+<td><?php echo $row->devision;?></td>
+
+<td><?php echo $row->comment;?></td>
+<td><?php echo $row->action;?></td>
+<td><?php echo $row->branch;?></td>
+<td><?php echo $row->mainreciver;?></td>
+<td><?php echo $row->position;?></td>
+<td><?php echo $row->action2;?></td>
+<td>
+<a href="gmrdetails.php?regno=<?php echo $row->regno;?>" title="View Full Details"><i class="fa fa-desktop"></i></a>&nbsp;&nbsp;
+
+<td><a href="editgmr.php?id=<?php echo $row->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+<!--<a href="manage-students.php?del=<?php echo $row->regno;?>" title="Delete Record" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td> -->
+										</tr>
+									<?php
+$cnt=$cnt+1;
+									 } ?>
+											
+										
+									</tbody>
+								</table>
+
+								
+							</div>
+						</div>
+
 					
-						<h2 class="page-title">Mail information</h2>
-
-		
-<!--SELECT * FROM registration
-WHERE mainreciver='GMR';-->
-		
-						
-<?php
-$link = mysqli_connect("localhost", "rootdb", "MySqlClient", "mmsslrdb");
- 
-// Check connection
-if($link === false){
-    die("ERROR: Could not connect. " . mysqli_connect_error());
-}
- 
-// Attempt select query execution
-$sql = "SELECT * FROM registration where mainreciver='GMR'";
-if($result = mysqli_query($link, $sql)){
-    if(mysqli_num_rows($result) > 0){
-        echo "<table border=2 ,  border-collapse: collapse 40 ,  padding: 5px, width:100%>";
-            echo "<tr>";
-                echo "<th>id</th>";
-                echo "<th>regno</th>";
-                echo "<th>title</th>";
-                echo "<th>subject</th>";
-                echo "<th>recidate</th>";
-                echo "<th>recitype</th>";
-                echo "<th>regplace</th>";
-                echo "<th>devision</th>";
-                echo "<th>action</th>";
-                echo "<th>branch</th>";
-                echo "<th>position</th>";
-                echo "<th>comment</th>";
-                
-            echo "</tr>";
-        while($row = mysqli_fetch_array($result)){
-            echo "<tr>";
-                echo "<td>" . $row['id'] . "</td>";
-                echo "<td>" . $row['regno'] . "</td>";
-				echo "<td>" . $row['title'] . "</td>";
-                echo "<td>" . $row['subject'] . "</td>";
-				echo "<td>" . $row['recidate'] . "</td>";
-                echo "<td>" . $row['recitype'] . "</td>";
-				echo "<td>" . $row['regplace'] . "</td>";
-                echo "<td>" . $row['devision'] . "</td>";
-				echo "<td>" . $row['action'] . "</td>";
-                echo "<td>" . $row['branch'] . "</td>";
-				echo "<td>" . $row['position'] . "</td>";
-				echo "<td>" . $row['comment'] . "</td>";
-            echo "</tr>";
-        }
-        echo "</table>";
-        // Free result set
-        mysqli_free_result($result);
-    } else{
-        echo "No records matching your query were found.";
-    }
-} else{
-    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-}
- 
-// Close connection
-mysqli_close($link);
-?>
-
-
-						
 					</div>
-				</div> 	
+				</div>
+
+			
+
 			</div>
 		</div>
 	</div>
+
+	<!-- Loading Scripts -->
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap-select.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -163,46 +164,7 @@ mysqli_close($link);
 	<script src="js/fileinput.js"></script>
 	<script src="js/chartData.js"></script>
 	<script src="js/main.js"></script>
+
 </body>
-	<script>
-function checkAvailability() {
-
-$("#loaderIcon").show();
-jQuery.ajax({
-url: "check_availability.php",
-data:'emailid='+$("#email").val(),
-type: "POST",
-success:function(data){
-$("#user-availability-status").html(data);
-$("#loaderIcon").hide();
-},
-error:function ()
-{
-event.preventDefault();
-alert('error');
-}
-});
-}
-</script>
-	<script>
-function checkRegnoAvailability() {
-
-$("#loaderIcon").show();
-jQuery.ajax({
-url: "check_availability.php",
-data:'regno='+$("#regno").val(),
-type: "POST",
-success:function(data){
-$("#user-reg-availability").html(data);
-$("#loaderIcon").hide();
-},
-error:function ()
-{
-event.preventDefault();
-alert('error');
-}
-});
-}
-</script>
 
 </html>

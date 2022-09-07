@@ -172,7 +172,7 @@ if(isset($_POST['save']))
 			<th>Branch</th>
 			<th>Main Mail Reciver </th>
             <th> Position</th>
-			
+			<th> Action 2</th>
           </tr>
         </thead>
         <tbody>
@@ -200,6 +200,7 @@ if(isset($_POST['save']))
 						<td><?php echo $value['branch'];?></td>
 						<td><?php echo $value['mainreciver'];?></td>
                         <td><?php echo $value['position'];?></td>
+                        <td><?php echo $value['action2'];?></td>
                     </tr>
                          
                         <?php

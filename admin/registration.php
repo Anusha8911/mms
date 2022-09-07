@@ -21,6 +21,7 @@ $action=$_POST['action'];
 $branch=$_POST['branch'];
 $mainreciver=$_POST['mainreciver'];
 $position=$_POST['position'];
+$action2=$_POST['action2'];
 	$result ="SELECT count(*) FROM userRegistration WHERE email=? || regNo=?";
 		$stmt = $mysqli->prepare($result);
 		$stmt->bind_param('ss',$email,$regno);
@@ -34,9 +35,9 @@ echo"<script>alert('Registration number or email id already registered.');</scri
 }else{
 
 
-$query="insert into  registration(id,recidate,devision,subject,title,recitype,regno,regplace,comment,action,branch,mainreciver,position) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+$query="insert into  registration(id,recidate,devision,subject,title,recitype,regno,regplace,comment,action,branch,mainreciver,position,action2) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 $stmt = $mysqli->prepare($query);
-$rc=$stmt->bind_param('isssssissssss',$id,$recidate,$devision,$subject,$title,$recitype,$regno,$regplace,$comment,$action,$branch,$mainreciver,$position);
+$rc=$stmt->bind_param('isssssisssssss',$id,$recidate,$devision,$subject,$title,$recitype,$regno,$regplace,$comment,$action,$branch,$mainreciver,$position,$action2);
 $stmt->execute();
 
 $stmt->close();
