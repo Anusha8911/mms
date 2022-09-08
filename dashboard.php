@@ -48,7 +48,7 @@ check_login();
                                                 <div class="stat-panel-number h1 ">My New Mail</div>
                                             </div>
                                         </div>
-                                        <a href="gmrmail.php" class="block-anchor panel-footer">Full Detail <i class="fa fa-arrow-right"></i></a>
+                                        <a href="gmamail.php" class="block-anchor panel-footer">Full Detail <i class="fa fa-arrow-right"></i></a>
                                     </div>
                                 </div>
                                 <div class="col-md-3">

@@ -58,7 +58,7 @@ echo"<script>alert('Profile updated Succssfully');</script>";
 
 					
 
-<a href="gmamail.php">To see your mail information click here</a>
+<a href="opsmail.php">To see your mail information click here</a>
 
 
 
