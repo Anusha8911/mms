@@ -2,7 +2,8 @@
 SQLyog Ultimate - MySQL GUI v8.2 
 MySQL - 5.5.5-10.4.24-MariaDB : Database - abc
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -141,12 +142,13 @@ CREATE TABLE `registration` (
   `mainreciver` varchar(1000) DEFAULT NULL,
   `position` varchar(500) DEFAULT NULL,
   `action2` varchar(500) DEFAULT NULL,
+   `firstName` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
 
 /*Data for the table `registration` */
 
-insert  into `registration`(`id`,`recidate`,`devision`,`regno`,`subject`,`title`,`recitype`,`regplace`,`action`,`comment`,`branch`,`mainreciver`,`position`,`action2`) values (5,'2022-08-01','CR',57,'1','ee','By Normal Post','ee','Appoinment','ee','Ticketing','GMR','BO','Sent for Answer');
+insert  into `registration`(`id`,`recidate`,`devision`,`regno`,`subject`,`title`,`recitype`,`regplace`,`action`,`comment`,`branch`,`mainreciver`,`position`,`action2`,`firstName`) values (5,'2022-08-01','CR',57,'1','ee','By Normal Post','ee','Appoinment','ee','Ticketing','GMR','BO','Sent for Answer','BO of OPS');
 
 /*Table structure for table `role` */
 

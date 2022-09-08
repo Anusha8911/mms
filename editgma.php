@@ -19,10 +19,11 @@ $branch=$_POST['branch'];
 $mainreciver=$_POST['mainreciver'];
 $position=$_POST['position'];
 $action2=$_POST['action2'];
+$firstName=$_POST['firstName'];
 $id=$_GET['id'];
-$query="update registration set regno=?,title=?,regplace=?,subject=?,comment=?,devision=?,recidate=?,recitype=?,action=?,branch=?,mainreciver=?,position=?,action2=? where id=?";
+$query="update registration set regno=?,title=?,regplace=?,subject=?,comment=?,devision=?,recidate=?,recitype=?,action=?,branch=?,mainreciver=?,position=?,action2=?,firstName=? where id=?";
 $stmt = $mysqli->prepare($query);
-$rc=$stmt->bind_param('issssssssssssi',$regno,$title,$regplace,$subject,$comment,$devision,$recidate,$recitype,$action,$branch,$mainreciver,$position,$action2,$id);
+$rc=$stmt->bind_param('isssssssssssssi',$regno,$title,$regplace,$subject,$comment,$devision,$recidate,$recitype,$action,$branch,$mainreciver,$position,$action2,$firstName,$id);
 $stmt->execute();
 echo"<script>alert('Mail Details has been Updated successfully');</script>";
 }
@@ -189,6 +190,27 @@ while($row=$res->fetch_object())
 
 ?>
 <option value="<?php echo $row->action;?>"><?php echo $row->action;?></option>
+<?php } ?>
+</select> </div>
+</div>		
+
+
+<div class="form-group">
+<label class="col-sm-2 control-label">To </label>
+<div class="col-sm-8">
+<select name="user" id="user"class="form-control" required> 
+<option value="">Select to whom</option>
+<?php $query ="SELECT * FROM userregistration";
+
+
+$stmt2 = $mysqli->prepare($query);
+$stmt2->execute();
+$res=$stmt2->get_result();
+while($row=$res->fetch_object())
+{
+
+?>
+<option value="<?php echo $row->firstName;?>"><?php echo $row->firstName;?></option>
 <?php } ?>
 </select> </div>
 </div>		
