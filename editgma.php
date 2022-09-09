@@ -67,7 +67,7 @@ echo"<script>alert('Mail Details has been Updated successfully');</script>";
 								<div class="panel panel-default">
 									<div class="panel-heading">Edit Mail Details</div>
 									<div class="panel-body">
-										<form method="post" class="form-horizontal">
+										<form method="post"  class="form-horizontal">
 												<?php	
 												$id=$_GET['id'];
 	$ret="select * from registration where id=?";
@@ -198,7 +198,7 @@ while($row=$res->fetch_object())
 <div class="form-group">
 <label class="col-sm-2 control-label">To </label>
 <div class="col-sm-8">
-<select name="user" id="user"class="form-control" required> 
+<select name="firstName" id="firstName"class="form-control" required> 
 <option value="">Select to whom</option>
 <?php $query ="SELECT * FROM userregistration";
 
@@ -211,15 +211,25 @@ while($row=$res->fetch_object())
 
 ?>
 <option value="<?php echo $row->firstName;?>"><?php echo $row->firstName;?></option>
+
 <?php } ?>
+
 </select> </div>
 </div>		
 
 <?php } ?>
 												<div class="col-sm-8 col-sm-offset-2">
 													
-													<input class="btn btn-primary" type="submit" name="submit" value="Update Room Details ">
+<input class="btn btn-primary"  type="submit" name="submit"  value="Update Mail Details "  >
+
+  							
+
+													
+												
+												
 												</div>
+
+
 											</div>
 
 										</form>

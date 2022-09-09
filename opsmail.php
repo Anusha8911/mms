@@ -66,7 +66,7 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 									<thead>
 										<tr>
 											<th>No.</th>
-											<th>Registration No </th>
+											<th>Regis No </th>
 											<th>Id </th>
 											<th>Title </th>
 											<th>Subject </th>
@@ -79,12 +79,15 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 											<th>Main Receiver</th>
 											<th>Positions</th>
 											<th>Action 2</th>
+											
+											<th>To</th>
+											<th>Action 3</th>
 										</tr>
 									</thead>
 									<tfoot>
 										<tr>
 											<th>No.</th>
-											<th>Registration No</th>
+											<th>Regis No</th>
 											<th>Id</th>
 											<th>Title </th>
 											<th>Subject </th>
@@ -97,12 +100,14 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 											<th>Main Receiver</th>
 											<th>Positions</th>
 											<th>Action 2</th>
+											<th>To</th>
+											<th>Action 3</th>
 										</tr>
 									</tfoot>
 									<tbody>
 <?php	
 $aid=$_SESSION['id'];
-$ret="select * from registration where branch='OPS'";
+$ret="select * from registration where firstName='%OPS%'";
 $stmt= $mysqli->prepare($ret) ;
 //$stmt->bind_param('i',$aid);
 $stmt->execute() ;//ok
@@ -126,10 +131,12 @@ while($row=$res->fetch_object())
 <td><?php echo $row->mainreciver;?></td>
 <td><?php echo $row->position;?></td>
 <td><?php echo $row->action2;?></td>
+<td><?php echo $row->firstName;?></td>
+<td><?php echo $row->action3;?></td>
 <td>
-<a href="gmrdetails.php?regno=<?php echo $row->regno;?>" title="View Full Details"><i class="fa fa-desktop"></i></a>&nbsp;&nbsp;
+<a href="opsdetails.php?regno=<?php echo $row->regno;?>" title="View Full Details"><i class="fa fa-desktop"></i></a>&nbsp;&nbsp;
 
-<td><a href="editgmr.php?id=<?php echo $row->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+<td><a href="editops.php?id=<?php echo $row->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
 <!--<a href="manage-students.php?del=<?php echo $row->regno;?>" title="Delete Record" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td> -->
 										</tr>
 									<?php

@@ -79,7 +79,6 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 											<th>Main Receiver</th>
 											<th>Positions</th>
 											<th>Action 2</th>
-											<th>To</th>
 										</tr>
 									</thead>
 									<tfoot>
@@ -98,13 +97,12 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 											<th>Main Receiver</th>
 											<th>Positions</th>
 											<th>Action 2</th>
-											<th>To</th>
 										</tr>
 									</tfoot>
 									<tbody>
 <?php	
 $aid=$_SESSION['id'];
-$ret="select * from registration where mainreciver='GMA'";
+$ret="select * from registration where branch='OPS'";
 $stmt= $mysqli->prepare($ret) ;
 //$stmt->bind_param('i',$aid);
 $stmt->execute() ;//ok
@@ -128,11 +126,10 @@ while($row=$res->fetch_object())
 <td><?php echo $row->mainreciver;?></td>
 <td><?php echo $row->position;?></td>
 <td><?php echo $row->action2;?></td>
-<td><?php echo $row->firstName;?></td>
 <td>
-<a href="gmadetails.php?regno=<?php echo $row->regno;?>" title="View Full Details"><i class="fa fa-desktop"></i></a>&nbsp;&nbsp;
+<a href="gmrdetails.php?regno=<?php echo $row->regno;?>" title="View Full Details"><i class="fa fa-desktop"></i></a>&nbsp;&nbsp;
 
-<td><a href="editgma.php?id=<?php echo $row->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+<td><a href="editgmr.php?id=<?php echo $row->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
 <!--<a href="manage-students.php?del=<?php echo $row->regno;?>" title="Delete Record" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td> -->
 										</tr>
 									<?php
